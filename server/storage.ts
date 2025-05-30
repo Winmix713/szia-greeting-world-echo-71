@@ -1,3 +1,4 @@
+
 import { users, cards, templates, type User, type InsertUser, type Card, type InsertCard, type Template, type InsertTemplate } from "@shared/schema";
 
 export interface IStorage {
@@ -150,8 +151,51 @@ export class MemStorage implements IStorage {
     const id = this.currentCardId++;
     const now = new Date();
     const card: Card = {
-      ...insertCard,
       id,
+      title: insertCard.title || "Modern Card",
+      description: insertCard.description || "Live preview with real-time updates",
+      bgGradientFrom: insertCard.bgGradientFrom || "#523091",
+      bgGradientTo: insertCard.bgGradientTo || "#1a0b33",
+      bgOpacityFrom: insertCard.bgOpacityFrom || "0.70",
+      bgOpacityTo: insertCard.bgOpacityTo || "0.14",
+      shadowColor: insertCard.shadowColor || "#7c3aed",
+      shadowOpacity: insertCard.shadowOpacity || "0.3",
+      enableHoverEffects: insertCard.enableHoverEffects ?? true,
+      enableAnimations: insertCard.enableAnimations ?? true,
+      cardWidth: insertCard.cardWidth || "320",
+      cardHeight: insertCard.cardHeight || "200",
+      cardPadding: insertCard.cardPadding || "24",
+      cardBorderRadius: insertCard.cardBorderRadius || {
+        topLeft: "16",
+        topRight: "16",
+        bottomLeft: "16",
+        bottomRight: "16",
+        unit: "px",
+      },
+      cardOpacity: insertCard.cardOpacity || 100,
+      shadowSettings: insertCard.shadowSettings || {
+        inset: false,
+        x: "0",
+        y: "30",
+        blur: "50",
+        spread: "0",
+      },
+      shadow2Settings: insertCard.shadow2Settings || null,
+      titleFont: insertCard.titleFont || "Inter",
+      titleSize: insertCard.titleSize || 18,
+      titleWeight: insertCard.titleWeight || "600",
+      titleAlign: insertCard.titleAlign || "left",
+      descriptionFont: insertCard.descriptionFont || "Inter",
+      descriptionSize: insertCard.descriptionSize || 14,
+      descriptionWeight: insertCard.descriptionWeight || "400",
+      descriptionAlign: insertCard.descriptionAlign || "left",
+      rotation: insertCard.rotation || 0,
+      scaleX: insertCard.scaleX || 1,
+      scaleY: insertCard.scaleY || 1,
+      blur: insertCard.blur || 0,
+      brightness: insertCard.brightness || 100,
+      contrast: insertCard.contrast || 100,
+      saturation: insertCard.saturation || 100,
       createdAt: now,
       updatedAt: now,
     };
@@ -166,6 +210,8 @@ export class MemStorage implements IStorage {
     const updatedCard: Card = {
       ...card,
       ...updates,
+      id: card.id,
+      createdAt: card.createdAt,
       updatedAt: new Date(),
     };
     this.cards.set(id, updatedCard);
@@ -188,8 +234,17 @@ export class MemStorage implements IStorage {
     const id = this.currentTemplateId++;
     const now = new Date();
     const template: Template = {
-      ...insertTemplate,
       id,
+      name: insertTemplate.name,
+      category: insertTemplate.category,
+      description: insertTemplate.description,
+      tags: insertTemplate.tags || [],
+      preview: insertTemplate.preview,
+      author: insertTemplate.author,
+      downloads: insertTemplate.downloads || 0,
+      rating: insertTemplate.rating || 0,
+      isPremium: insertTemplate.isPremium || false,
+      cardData: insertTemplate.cardData,
       createdAt: now,
       updatedAt: now,
     };

@@ -55,6 +55,10 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
   const currentSlide = slides.find(slide => slide.id === currentSlideId);
   const currentSlideIndex = slides.findIndex(slide => slide.id === currentSlideId);
 
+  const handleSlideChange = (slideId: number) => {
+    setCurrentSlideId(slideId);
+  };
+
   if (presentationLoading || slidesLoading || createPresentation.isPending) {
     return (
       <div className="h-screen flex items-center justify-center editor-theme">
@@ -91,6 +95,7 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
           totalSlides={slides.length}
           zoomLevel={zoomLevel}
           onZoomChange={setZoomLevel}
+          onSlideChange={handleSlideChange}
         />
       </div>
     </div>

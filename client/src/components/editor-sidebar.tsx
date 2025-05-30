@@ -1,3 +1,4 @@
+
 import React, { useState, useMemo, useCallback, useEffect } from "react";
 import {
   Search,
@@ -34,7 +35,7 @@ import {
 
 // Mock hooks - replace with your actual implementations
 const useCreateSlide = () => ({
-  mutate: (params, callbacks) => {
+  mutate: (params: any, callbacks?: { onSuccess?: (newSlide: any) => void; onError?: (error: any) => void }) => {
     setTimeout(() => {
       const newSlide = {
         id: Date.now(),
@@ -51,7 +52,7 @@ const useCreateSlide = () => ({
 });
 
 const useToast = () => ({
-  toast: ({ title, description, variant }) => {
+  toast: ({ title, description, variant }: { title: string; description: string; variant?: string }) => {
     console.log(`Toast: ${title} - ${description} (${variant || "default"})`);
   },
 });
@@ -176,14 +177,14 @@ export default function EditorSidebar({
         },
       },
       {
-        onSuccess: (newSlide) => {
+        onSuccess: (newSlide: any) => {
           onSlideSelect(newSlide.id);
           toast({
             title: "Slide Added",
             description: "New slide created successfully",
           });
         },
-        onError: (error) => {
+        onError: (error: any) => {
           console.error("Failed to create slide:", error);
           toast({
             title: "Error",

@@ -88,6 +88,28 @@ export const templates = pgTable("templates", {
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
 
+export const presentations = pgTable("presentations", {
+  id: serial("id").primaryKey(),
+  title: text("title").notNull().default("Untitled Presentation"),
+  description: text("description"),
+  content: jsonb("content").$type<Record<string, any>>().default({}),
+  isStarred: boolean("is_starred").default(false),
+  collaborators: text("collaborators").array().default([]),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const slides = pgTable("slides", {
+  id: serial("id").primaryKey(),
+  presentationId: integer("presentation_id").references(() => presentations.id).notNull(),
+  title: text("title").notNull().default("Untitled Slide"),
+  content: jsonb("content").$type<Record<string, any>>().default({}),
+  position: integer("position").notNull().default(0),
+  isVisible: boolean("is_visible").default(true),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
 export const insertCardSchema = createInsertSchema(cards).omit({
   id: true,
   createdAt: true,
@@ -100,10 +122,26 @@ export const insertTemplateSchema = createInsertSchema(templates).omit({
   updatedAt: true,
 });
 
+export const insertPresentationSchema = createInsertSchema(presentations).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
+export const insertSlideSchema = createInsertSchema(slides).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
+
 export type InsertCard = z.infer<typeof insertCardSchema>;
 export type Card = typeof cards.$inferSelect;
 export type InsertTemplate = z.infer<typeof insertTemplateSchema>;
 export type Template = typeof templates.$inferSelect;
+export type InsertPresentation = z.infer<typeof insertPresentationSchema>;
+export type Presentation = typeof presentations.$inferSelect;
+export type InsertSlide = z.infer<typeof insertSlideSchema>;
+export type Slide = typeof slides.$inferSelect;
 
 export const users = pgTable("users", {
   id: serial("id").primaryKey(),
