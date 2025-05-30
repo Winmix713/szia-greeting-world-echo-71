@@ -1,7 +1,7 @@
 
 import { useState, useCallback } from "react";
 import { CardData } from "@/types/card";
-import { createDefaultCard } from "../utils/cardDefaults";
+import { createDefaultCard } from "@/utils/cardDefaults";
 import { useCardHistory } from "@/hooks/useCardHistory";
 import { useCardOperations } from "@/hooks/useCardOperations";
 import CardEditorHeader from "@/components/card-editor/CardEditorHeader";
