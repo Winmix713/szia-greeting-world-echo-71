@@ -1,0 +1,127 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 222 47% 4%;
+  --foreground: 213 31% 91%;
+  --muted: 218 11% 15%;
+  --muted-foreground: 218 11% 65%;
+  --popover: 222 47% 4%;
+  --popover-foreground: 213 31% 91%;
+  --card: 222 47% 4%;
+  --card-foreground: 213 31% 91%;
+  --border: 218 11% 15%;
+  --input: 218 11% 15%;
+  --primary: 262 83% 58%;
+  --primary-foreground: 210 40% 98%;
+  --secondary: 218 11% 15%;
+  --secondary-foreground: 213 31% 91%;
+  --accent: 218 11% 15%;
+  --accent-foreground: 213 31% 91%;
+  --destructive: 0 63% 31%;
+  --destructive-foreground: 210 40% 98%;
+  --ring: 262 83% 58%;
+  --radius: 0.5rem;
+
+  /* Card Editor specific colors */
+  --gradient-start: 222 84% 5%;
+  --gradient-middle: 262 83% 20%;
+  --gradient-end: 222 84% 5%;
+  --glass-bg: 222 47% 4%;
+  --glass-border: 218 11% 25%;
+  --accent-purple: 262 83% 58%;
+  --accent-blue: 217 91% 60%;
+  --accent-pink: 316 73% 69%;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased;
+    font-family: Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+/* Editor specific styles */
+.editor-theme {
+  background-color: hsl(var(--editor-dark));
+  color: hsl(var(--editor-text));
+}
+
+.editor-medium {
+  background-color: hsl(var(--editor-medium));
+}
+
+.editor-light {
+  background-color: hsl(var(--editor-light));
+}
+
+.editor-border {
+  border-color: hsl(var(--editor-border));
+}
+
+.editor-text-muted {
+  color: hsl(var(--editor-text-muted));
+}
+
+.editor-accent {
+  background-color: hsl(var(--editor-accent));
+}
+
+.editor-accent:hover {
+  background-color: hsl(var(--editor-accent-hover));
+}
+
+/* Slide canvas aspect ratio */
+.slide-canvas {
+  aspect-ratio: 16 / 9;
+}
+
+/* Custom scrollbar for sidebar */
+.slide-list-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--editor-light)) hsl(var(--editor-dark));
+}
+
+.slide-list-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.slide-list-scroll::-webkit-scrollbar-track {
+  background: hsl(var(--editor-dark));
+}
+
+.slide-list-scroll::-webkit-scrollbar-thumb {
+  background: hsl(var(--editor-light));
+  border-radius: 3px;
+}
+
+.slide-list-scroll::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--editor-border));
+}
