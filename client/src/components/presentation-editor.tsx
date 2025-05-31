@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { usePresentation, useSlides, useCreatePresentation } from "@/hooks/use-presentation";
 import EditorHeader from "./editor-header";
@@ -48,15 +49,27 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
     }
   }, [slides, currentSlideId]);
 
+  // Filter slides with proper type handling
   const filteredSlides = slides.filter(slide =>
     slide.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const currentSlide = slides.find(slide => slide.id === currentSlideId);
+  const currentSlide = slides.find(slide => slide.id === currentSlideId) || null;
   const currentSlideIndex = slides.findIndex(slide => slide.id === currentSlideId);
 
-  const handleSlideChange = (slideId: number) => {
-    setCurrentSlideId(slideId);
+  const handleSlideChange = (direction: "prev" | "next") => {
+    const currentIndex = slides.findIndex(slide => slide.id === currentSlideId);
+    let newIndex;
+    
+    if (direction === "prev") {
+      newIndex = Math.max(0, currentIndex - 1);
+    } else {
+      newIndex = Math.min(slides.length - 1, currentIndex + 1);
+    }
+    
+    if (slides[newIndex]) {
+      setCurrentSlideId(slides[newIndex].id);
+    }
   };
 
   if (presentationLoading || slidesLoading || createPresentation.isPending) {

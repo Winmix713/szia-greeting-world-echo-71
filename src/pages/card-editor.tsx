@@ -1,15 +1,14 @@
-
 import { useState, useCallback } from "react";
-import { CardData } from "@/types/card";
+import { CardData } from "../types/card";
 import { createDefaultCard } from "../utils/cardDefaults";
-import { useCardHistory } from "@/hooks/useCardHistory";
-import { useCardOperations } from "@/hooks/useCardOperations";
-import CardEditorHeader from "@/components/card-editor/CardEditorHeader";
-import CardEditorToolbar from "@/components/card-editor/CardEditorToolbar";
-import CardEditorSidebar from "@/components/card-editor/CardEditorSidebar";
-import CardPreview from "@/components/card-editor/CardPreview";
-import CardEditorBottomBar from "@/components/card-editor/CardEditorBottomBar";
-import Dockbar from "@/components/dockbar";
+import { useCardHistory } from "../hooks/useCardHistory";
+import { useCardOperations } from "../hooks/useCardOperations";
+import CardEditorHeader from "../components/card-editor/CardEditorHeader";
+import CardEditorToolbar from "../components/card-editor/CardEditorToolbar";
+import CardEditorSidebar from "../components/card-editor/CardEditorSidebar";
+import CardPreview from "../components/card-editor/CardPreview";
+import CardEditorBottomBar from "../components/card-editor/CardEditorBottomBar";
+import Dockbar from "../components/dockbar";
 
 export default function CardEditor() {
   const [activeCard, setActiveCard] = useState<CardData>(createDefaultCard());
@@ -62,7 +61,6 @@ export default function CardEditor() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-900 text-gray-200 font-sans">
-      {/* Dockbar */}
       <Dockbar
         activeCard={activeCard}
         updateCard={updateCard}
@@ -85,7 +83,6 @@ export default function CardEditor() {
         onGenerateRandom={handleGenerateRandom}
       />
 
-      {/* Main Content */}
       <div className="flex flex-1 overflow-hidden">
         <CardEditorSidebar
           searchQuery={searchQuery}
@@ -94,7 +91,6 @@ export default function CardEditor() {
           onUpdateCard={updateCard}
         />
 
-        {/* Canvas Area */}
         <main className="flex-1 bg-gray-800 flex flex-col items-center justify-center p-8 relative">
           <CardPreview
             activeCard={activeCard}

@@ -80,7 +80,7 @@ export class MemStorage implements IStorage {
       },
       {
         name: "Social Media",
-        category: "Social Media",
+        category: "Social Media", 
         description: "Eye-catching gradient design for social media posts",
         tags: ["social", "gradient", "colorful", "engaging"],
         preview: "social",
@@ -213,6 +213,7 @@ export class MemStorage implements IStorage {
       id: card.id,
       createdAt: card.createdAt,
       updatedAt: new Date(),
+      shadow2Settings: updates.shadow2Settings !== undefined ? updates.shadow2Settings : card.shadow2Settings,
     };
     this.cards.set(id, updatedCard);
     return updatedCard;
