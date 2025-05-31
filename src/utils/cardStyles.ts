@@ -1,5 +1,5 @@
 
-import { CardData } from "@/types/card";
+import { CardData } from "../types/card";
 
 export const generateCardStyle = (activeCard: CardData) => {
   const hexToRgb = (hex: string) => {
