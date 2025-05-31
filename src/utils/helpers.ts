@@ -1,10 +1,6 @@
-import { type ClassValue, clsx } from 'clsx';
-import { twMerge } from 'tailwind-merge';
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs));
-}
-
+/**
+ * Debounce function to limit the rate of function calls
+ */
 export function debounce<F extends (...args: any[]) => any>(func: F, waitFor: number) {
   let timeout: ReturnType<typeof setTimeout> | null = null;
   
@@ -18,6 +14,9 @@ export function debounce<F extends (...args: any[]) => any>(func: F, waitFor: nu
   return debounced as (...args: Parameters<F>) => void;
 }
 
+/**
+ * Convert hex color to RGB object
+ */
 export function hexToRgb(hex: string) {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
   return result
@@ -29,6 +28,16 @@ export function hexToRgb(hex: string) {
     : { r: 82, g: 48, b: 145 }; // Default purple
 }
 
+/**
+ * Generate a random color hex
+ */
+export function randomColor(): string {
+  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
+}
+
+/**
+ * Generate a shadow CSS value
+ */
 export function generateShadowValue(
   x: number, 
   y: number, 
@@ -39,8 +48,4 @@ export function generateShadowValue(
 ): string {
   const { r, g, b } = hexToRgb(color);
   return `${x}px ${y}px ${blur}px ${spread}px rgba(${r}, ${g}, ${b}, ${opacity})`;
-}
-
-export function randomColor(): string {
-  return `#${Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0')}`;
 }
