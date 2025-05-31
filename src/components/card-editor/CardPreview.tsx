@@ -1,6 +1,5 @@
-
-import { CardData } from "@/types/card";
-import { generateCardStyle } from "@/utils/cardStyles";
+import { CardData } from "../../types/card";
+import { generateCardStyle } from "../../utils/cardStyles";
 
 interface CardPreviewProps {
   activeCard: CardData;

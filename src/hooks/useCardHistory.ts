@@ -1,6 +1,5 @@
-
 import { useCallback, useState } from "react";
-import { CardData } from "@/types/card";
+import { CardData } from "../types/card";
 
 export const useCardHistory = (initialCard: CardData) => {
   const [history, setHistory] = useState<CardData[]>([initialCard]);

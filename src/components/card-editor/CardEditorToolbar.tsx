@@ -1,4 +1,3 @@
-
 import { 
   Undo, 
   Redo, 
@@ -15,7 +14,7 @@ import {
   Layers,
   Shuffle
 } from "lucide-react";
-import { CardData } from "@/types/card";
+import { CardData } from "../../types/card";
 
 interface CardEditorToolbarProps {
   activeCard: CardData;

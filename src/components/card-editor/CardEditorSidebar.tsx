@@ -1,6 +1,5 @@
-
 import { Search, Plus } from "lucide-react";
-import { CardData } from "@/types/card";
+import { CardData } from "../../types/card";
 
 interface CardEditorSidebarProps {
   searchQuery: string;

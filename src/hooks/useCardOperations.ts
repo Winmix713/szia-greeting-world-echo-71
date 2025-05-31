@@ -1,7 +1,6 @@
-
 import { useCallback } from "react";
-import { CardData } from "@/types/card";
-import { useToast } from "@/hooks/use-toast";
+import { CardData } from "../types/card";
+import { useToast } from "./use-toast";
 
 export const useCardOperations = () => {
   const { toast } = useToast();

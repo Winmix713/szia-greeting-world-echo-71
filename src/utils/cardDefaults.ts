@@ -1,5 +1,4 @@
-
-import { CardData } from "@/types/card";
+import { CardData } from "../types/card";
 
 export const createDefaultCard = (): CardData => ({
   id: Date.now().toString(),
