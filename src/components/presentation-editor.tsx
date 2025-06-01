@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from "react";
 import { usePresentation, useSlides, useCreatePresentation } from "@/hooks/use-presentation";
 import EditorHeader from "./editor-header";
@@ -55,6 +56,21 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
   const currentSlide = slides.find(slide => slide.id === currentSlideId);
   const currentSlideIndex = slides.findIndex(slide => slide.id === currentSlideId);
 
+  const handleSlideChange = (direction: "prev" | "next") => {
+    const currentIndex = slides.findIndex(slide => slide.id === currentSlideId);
+    let newIndex;
+    
+    if (direction === "prev") {
+      newIndex = Math.max(0, currentIndex - 1);
+    } else {
+      newIndex = Math.min(slides.length - 1, currentIndex + 1);
+    }
+    
+    if (slides[newIndex]) {
+      setCurrentSlideId(slides[newIndex].id);
+    }
+  };
+
   if (presentationLoading || slidesLoading || createPresentation.isPending) {
     return (
       <div className="h-screen flex items-center justify-center editor-theme">
@@ -91,6 +107,7 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
           totalSlides={slides.length}
           zoomLevel={zoomLevel}
           onZoomChange={setZoomLevel}
+          onSlideChange={handleSlideChange}
         />
       </div>
     </div>

@@ -39,11 +39,16 @@ export function useSlides(presentationId?: number) {
 
 export function useCreatePresentation() {
   const queryClient = useQueryClient();
-  
+
   return useMutation<Presentation, Error, InsertPresentation>({
     mutationFn: async (data) => {
-      const response = await apiRequest("POST", "/api/presentations", data);
-      return response.json();
+      try {
+        const response = await apiRequest("POST", "/api/presentations", data);
+        return response.json();
+      } catch (error) {
+        console.error("Failed to create presentation:", error);
+        throw error;
+      }
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["/api/presentations"] });
@@ -53,7 +58,7 @@ export function useCreatePresentation() {
 
 export function useUpdatePresentation() {
   const queryClient = useQueryClient();
-  
+
   return useMutation<Presentation, Error, { id: number; data: Partial<InsertPresentation> }>({
     mutationFn: async ({ id, data }) => {
       const response = await apiRequest("PUT", `/api/presentations/${id}`, data);
@@ -68,7 +73,7 @@ export function useUpdatePresentation() {
 
 export function useCreateSlide() {
   const queryClient = useQueryClient();
-  
+
   return useMutation<Slide, Error, { presentationId: number; data: Omit<InsertSlide, 'presentationId'> }>({
     mutationFn: async ({ presentationId, data }) => {
       const response = await apiRequest("POST", `/api/presentations/${presentationId}/slides`, data);
@@ -82,7 +87,7 @@ export function useCreateSlide() {
 
 export function useUpdateSlide() {
   const queryClient = useQueryClient();
-  
+
   return useMutation<Slide, Error, { id: number; data: Partial<InsertSlide>; presentationId: number }>({
     mutationFn: async ({ id, data }) => {
       const response = await apiRequest("PUT", `/api/slides/${id}`, data);
@@ -96,7 +101,7 @@ export function useUpdateSlide() {
 
 export function useDeleteSlide() {
   const queryClient = useQueryClient();
-  
+
   return useMutation<void, Error, { id: number; presentationId: number }>({
     mutationFn: async ({ id }) => {
       await apiRequest("DELETE", `/api/slides/${id}`);
