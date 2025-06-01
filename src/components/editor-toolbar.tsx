@@ -532,12 +532,6 @@ export default function CompleteEditor() {
     }
   };
 
-  const handleSelectionChange = () => {
-    if (context) {
-      context.updateState();
-    }
-  };
-
   return (
     <EditorProvider>
       <div className="w-full max-w-6xl mx-auto bg-white border border-gray-200 rounded-lg shadow-sm">
@@ -548,9 +542,9 @@ export default function CompleteEditor() {
             contentEditable
             className="min-h-96 p-4 border border-gray-200 rounded focus:outline-none focus:ring-2 focus:ring-blue-500"
             onInput={handleEditorInput}
+            onSelectionChange={handleEditorInput}
             onMouseUp={handleEditorInput}
             onKeyUp={handleEditorInput}
-            onSelect={handleSelectionChange}
             style={{ fontFamily: context?.state.fontFamily || 'Inter' }}
             suppressContentEditableWarning={true}
           >
