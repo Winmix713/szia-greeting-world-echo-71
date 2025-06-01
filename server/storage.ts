@@ -1,4 +1,3 @@
-
 import { users, cards, templates, presentations, slides, type User, type InsertUser, type Card, type InsertCard, type Template, type InsertTemplate, type Presentation, type InsertPresentation, type Slide, type InsertSlide } from "@shared/schema";
 
 export interface IStorage {
@@ -180,7 +179,15 @@ export class MemStorage implements IStorage {
         blur: "50",
         spread: "0",
       },
-      shadow2Settings: insertCard.shadow2Settings || null,
+      shadow2Settings: insertCard.shadow2Settings as {
+        inset: boolean;
+        x: string;
+        y: string;
+        blur: string;
+        spread: string;
+        color: string;
+        opacity: string;
+      } | null || null,
       titleFont: insertCard.titleFont || "Inter",
       titleSize: insertCard.titleSize || 18,
       titleWeight: insertCard.titleWeight || "600",
@@ -210,6 +217,15 @@ export class MemStorage implements IStorage {
     const updatedCard: Card = {
       ...card,
       ...updates,
+      shadow2Settings: updates.shadow2Settings as {
+        inset: boolean;
+        x: string;
+        y: string;
+        blur: string;
+        spread: string;
+        color: string;
+        opacity: string;
+      } | null || card.shadow2Settings,
       id: card.id,
       createdAt: card.createdAt,
       updatedAt: new Date(),

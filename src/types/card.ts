@@ -10,6 +10,7 @@ export interface CardBorderRadius {
 }
 
 export interface ShadowSettings {
+  inset?: boolean;
   x: number;
   y: number;
   blur: number;
@@ -75,7 +76,7 @@ export const DEFAULT_CARD_SETTINGS: CardSettings = {
   bgOpacityFrom: 70,
   bgOpacityTo: 14,
   gradientAngle: 135,
-  shadowSettings: { x: 0, y: 30, blur: 50, spread: 0 },
+  shadowSettings: { inset: false, x: 0, y: 30, blur: 50, spread: 0 },
   shadowColor: "#7c3aed",
   shadowOpacity: 0.3,
   titleFont: "Inter",
