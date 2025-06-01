@@ -1,39 +1,37 @@
+
 import { useState } from 'react';
 import { SketchPicker } from 'react-color';
 import { CardData } from '../types/card';
 
 interface DockbarProps {
-  cardData: CardData;
-  onCardUpdate: (updatedCard: Partial<CardData>) => void;
+  activeCard?: Partial<CardData>;
+  updateCard: (updates: Partial<CardData>) => void;
 }
 
-export default function Dockbar({ cardData, onCardUpdate }: DockbarProps) {
-  const [isTitleBold, setIsTitleBold] = useState(cardData.titleWeight === "600");
-  const [isDescriptionBold, setIsDescriptionBold] = useState(cardData.descriptionWeight === "600");
+export default function Dockbar({ activeCard, updateCard }: DockbarProps) {
+  const [isTitleBold, setIsTitleBold] = useState(activeCard?.titleWeight === "600");
+  const [isDescriptionBold, setIsDescriptionBold] = useState(activeCard?.descriptionWeight === "600");
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [selectedColorType, setSelectedColorType] = useState<'from' | 'to' | null>(null);
 
   const handleTitleBoldClick = () => {
     const newWeight = isTitleBold ? "400" : "600";
     setIsTitleBold(!isTitleBold);
-    onCardUpdate({ titleWeight: newWeight });
+    updateCard({ titleWeight: newWeight });
   };
 
   const handleDescriptionBoldClick = () => {
     const newWeight = isDescriptionBold ? "400" : "600";
     setIsDescriptionBold(!isDescriptionBold);
-    onCardUpdate({ descriptionWeight: newWeight });
+    updateCard({ descriptionWeight: newWeight });
   };
 
   const handleGradientChange = (type: 'from' | 'to', color: string) => {
-    const currentGradient = cardData.gradient || { from: '#3b82f6', to: '#1d4ed8' };
-    const newGradient = { ...currentGradient, [type]: color };
-    
-    // Update the card data with the new gradient
-    onCardUpdate({ 
-      gradient: newGradient,
-      backgroundType: 'gradient'
-    });
+    if (type === 'from') {
+      updateCard({ bgGradientFrom: color });
+    } else {
+      updateCard({ bgGradientTo: color });
+    }
   };
 
   return (
@@ -82,7 +80,7 @@ export default function Dockbar({ cardData, onCardUpdate }: DockbarProps) {
         <div className="fixed top-0 left-0 w-full h-full bg-gray-900 bg-opacity-50 flex items-center justify-center">
           <div className="bg-gray-700 p-4 rounded-md">
             <SketchPicker
-              color={cardData.gradient?.[selectedColorType] || '#3b82f6'}
+              color={selectedColorType === 'from' ? activeCard?.bgGradientFrom || '#3b82f6' : activeCard?.bgGradientTo || '#8b5cf6'}
               onChangeComplete={(color) => {
                 handleGradientChange(selectedColorType, color.hex);
               }}

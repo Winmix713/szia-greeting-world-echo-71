@@ -1,3 +1,4 @@
+
 import { ReactNode } from 'react';
 
 export interface CardBorderRadius {
@@ -15,12 +16,18 @@ export interface ShadowSettings {
   spread: number;
 }
 
-export interface CardSettings {
-  id: string;
+export interface GradientSettings {
+  from: string;
+  to?: string;
+}
+
+export interface CardData {
+  id?: string;
   title: string;
   description: string;
   bgGradientFrom: string;
   bgGradientTo?: string;
+  gradient?: GradientSettings;
   cardOpacity: number;
   cardBorderRadius: CardBorderRadius;
   enableHoverEffects: boolean;
@@ -49,7 +56,10 @@ export interface CardSettings {
   saturation: number;
   enableAnimations: boolean;
   cardPadding: number;
+  backgroundType?: 'solid' | 'gradient';
 }
+
+export interface CardSettings extends CardData {}
 
 export const DEFAULT_CARD_SETTINGS: CardSettings = {
   id: "1",
@@ -85,6 +95,7 @@ export const DEFAULT_CARD_SETTINGS: CardSettings = {
   saturation: 100,
   enableAnimations: true,
   cardPadding: 24,
+  backgroundType: 'gradient',
 };
 
 export interface ToolDefinition {

@@ -8,7 +8,7 @@ export const cards = pgTable("cards", {
   title: text("title").notNull().default("Modern Card"),
   description: text("description").notNull().default("Live preview with real-time updates"),
   bgGradientFrom: text("bg_gradient_from").notNull().default("#523091"),
-  bgGradientTo: text("bg_gradient_to").notNull().default("#1a0b33"),
+  bgGradientTo: text("bg_gradient_to").default("#1a0b33"),
   bgOpacityFrom: text("bg_opacity_from").notNull().default("0.70"),
   bgOpacityTo: text("bg_opacity_to").notNull().default("0.14"),
   shadowColor: text("shadow_color").notNull().default("#7c3aed"),

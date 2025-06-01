@@ -18,8 +18,15 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
   const { toast } = useToast();
 
   const { data: presentation, isLoading: presentationLoading } = usePresentation(presentationId);
-  const { data: slides = [], isLoading: slidesLoading } = useSlides(presentationId);
+  const { data: slidesData = [], isLoading: slidesLoading } = useSlides(presentationId);
   const createPresentation = useCreatePresentation();
+
+  // Transform slides data to match expected type structure
+  const slides = slidesData.map(slide => ({
+    ...slide,
+    id: slide.id.toString(), // Convert number to string for compatibility
+    isVisible: slide.isVisible ?? true, // Convert null to boolean
+  }));
 
   // Create default presentation if none exists
   useEffect(() => {
@@ -45,7 +52,7 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
   // Set current slide to first slide when slides load
   useEffect(() => {
     if (slides.length > 0 && !currentSlideId) {
-      setCurrentSlideId(slides[0].id);
+      setCurrentSlideId(parseInt(slides[0].id));
     }
   }, [slides, currentSlideId]);
 
@@ -54,11 +61,11 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
     slide.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const currentSlide = slides.find(slide => slide.id === currentSlideId) || null;
-  const currentSlideIndex = slides.findIndex(slide => slide.id === currentSlideId);
+  const currentSlide = slides.find(slide => slide.id === currentSlideId?.toString()) || null;
+  const currentSlideIndex = slides.findIndex(slide => slide.id === currentSlideId?.toString());
 
   const handleSlideChange = (direction: "prev" | "next") => {
-    const currentIndex = slides.findIndex(slide => slide.id === currentSlideId);
+    const currentIndex = slides.findIndex(slide => slide.id === currentSlideId?.toString());
     let newIndex;
     
     if (direction === "prev") {
@@ -68,7 +75,7 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
     }
     
     if (slides[newIndex]) {
-      setCurrentSlideId(slides[newIndex].id);
+      setCurrentSlideId(parseInt(slides[newIndex].id));
     }
   };
 
