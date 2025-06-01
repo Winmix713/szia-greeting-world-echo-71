@@ -106,7 +106,7 @@ export const slides = pgTable("slides", {
   title: text("title").notNull().default("Untitled Slide"),
   content: jsonb("content").$type<Record<string, any>>().default({}),
   position: integer("position").notNull().default(0),
-  isVisible: boolean("is_visible").default(true),
+  isVisible: boolean("is_visible").notNull().default(true),
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });

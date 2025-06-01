@@ -6,6 +6,7 @@ import EditorToolbar from "./editor-toolbar";
 import EditorSidebar from "./editor-sidebar";
 import EditorCanvas from "./editor-canvas";
 import { useToast } from "@/hooks/use-toast";
+import type { Slide } from "@shared/schema";
 
 interface PresentationEditorProps {
   presentationId?: number;
@@ -49,11 +50,11 @@ export default function PresentationEditor({ presentationId }: PresentationEdito
     }
   }, [slides, currentSlideId]);
 
-  const filteredSlides = slides.filter(slide =>
+  const filteredSlides: Slide[] = slides.filter(slide =>
     slide.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const currentSlide = slides.find(slide => slide.id === currentSlideId);
+  const currentSlide: Slide | undefined = slides.find(slide => slide.id === currentSlideId);
   const currentSlideIndex = slides.findIndex(slide => slide.id === currentSlideId);
 
   const handleSlideChange = (direction: "prev" | "next") => {
