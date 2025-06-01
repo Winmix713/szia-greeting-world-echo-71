@@ -1,10 +1,19 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
   darkMode: ["class"],
-  content: ["./client/index.html", "./client/src/**/*.{js,jsx,ts,tsx}"],
+  content: [
+    "./client/index.html",
+    "./client/src/**/*.{js,jsx,ts,tsx}",
+    "./src/**/*.{js,jsx,ts,tsx}",
+    "./index.html"
+  ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "Helvetica Neue", "Arial", "Noto Sans", "sans-serif"],
+      },
       borderRadius: {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
@@ -61,6 +70,16 @@ export default {
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
         },
+        editor: {
+          dark: "hsl(var(--editor-dark))",
+          medium: "hsl(var(--editor-medium))",
+          light: "hsl(var(--editor-light))",
+          border: "hsl(var(--editor-border))",
+          text: "hsl(var(--editor-text))",
+          "text-muted": "hsl(var(--editor-text-muted))",
+          accent: "hsl(var(--editor-accent))",
+          "accent-hover": "hsl(var(--editor-accent-hover))",
+        },
       },
       keyframes: {
         "accordion-down": {
@@ -79,12 +98,30 @@ export default {
             height: "0",
           },
         },
+        fadeIn: {
+          from: { opacity: "0" },
+          to: { opacity: "1" },
+        },
+        slideIn: {
+          from: { transform: "translateY(100%)" },
+          to: { transform: "translateY(0)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
+        "fade-in": "fadeIn 0.5s ease-out",
+        "slide-in": "slideIn 0.3s ease-out",
+      },
+      aspectRatio: {
+        "16/9": "16 / 9",
+        "4/3": "4 / 3",
+        "3/2": "3 / 2",
       },
     },
   },
-  plugins: [require("tailwindcss-animate"), require("@tailwindcss/typography")],
+  plugins: [
+    require("tailwindcss-animate"), 
+    require("@tailwindcss/typography")
+  ],
 } satisfies Config;
